@@ -1,69 +1,65 @@
-// Limite le nombre de cartes par rangée pour économiser la mémoire (Smart TV)
-const MAX_PER_ROW = 8;
+import { useEffect, useState } from 'react';
 
+// Carrousel TV léger : 1 produit affiché à la fois, transition en fondu
 export default function Hero({ products, storeName }) {
-  // 2 rangées au lieu de 3 — moins de nœuds DOM
-  const half = Math.ceil(products.length / 2);
-  const row1 = products.slice(0, half).slice(0, MAX_PER_ROW);
-  const row2 = products.slice(half).slice(0, MAX_PER_ROW);
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
 
-  // Duplication ×2 suffit pour l'animation en boucle
-  const makeLoop = (arr) => (arr.length === 0 ? products.slice(0, MAX_PER_ROW) : [...arr, ...arr]);
+  useEffect(() => {
+    if (products.length === 0) return;
+    const timer = setInterval(() => {
+      // Fondu sortant
+      setVisible(false);
+      setTimeout(() => {
+        setIndex((i) => (i + 1) % products.length);
+        setVisible(true);
+      }, 500);
+    }, 5000); // change toutes les 5 secondes
+    return () => clearInterval(timer);
+  }, [products.length]);
+
+  if (products.length === 0) return null;
+  const product = products[index];
 
   return (
     <div className="hero">
       <div className="hero__bg-solid" />
 
       <div className="hero__logo-bg">
-        <img src="/logo-bg.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img src="/logo-bg.png" alt="" aria-hidden="true" />
       </div>
 
       <div className="hero__store-label">{storeName}</div>
 
-      <div className="hero__rows">
-        <HeroRow items={makeLoop(row1)} direction="left"  speed={36} />
-        <HeroRow items={makeLoop(row2)} direction="right" speed={28} />
+      {/* Carte produit centrale */}
+      <div className={`hero__spotlight${visible ? ' hero__spotlight--in' : ' hero__spotlight--out'}`}>
+        <div className="hero__spotlight-img-wrap">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="hero__spotlight-img"
+          />
+          {product.category && (
+            <span className="hero__spotlight-cat">{product.category}</span>
+          )}
+        </div>
+        <div className="hero__spotlight-body">
+          <p className="hero__spotlight-name">{product.name}</p>
+          <p className="hero__spotlight-price">
+            {Number(product.price).toLocaleString('fr-FR')}
+            <span> FCFA</span>
+          </p>
+          <p className="hero__spotlight-stock">
+            {product.inStock !== false ? 'Disponible en boutique' : 'Bientôt de retour'}
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
 
-function HeroRow({ items, direction, speed }) {
-  return (
-    <div className="hero__row-wrap">
-      <div
-        className={`hero__row hero__row--${direction}`}
-        style={{ animationDuration: `${speed}s` }}
-      >
-        {items.map((p, i) => (
-          <HeroCard key={`${p.id}-${i}`} product={p} />
+      {/* Indicateur de position */}
+      <div className="hero__dots">
+        {products.map((_, i) => (
+          <span key={i} className={`hero__dot${i === index ? ' hero__dot--active' : ''}`} />
         ))}
-      </div>
-    </div>
-  );
-}
-
-function HeroCard({ product }) {
-  return (
-    <div className="hero__card">
-      <div className="hero__card-img-wrap">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="hero__card-img"
-          loading="lazy"
-          decoding="async"
-        />
-        {product.category && (
-          <span className="hero__card-cat">{product.category}</span>
-        )}
-      </div>
-      <div className="hero__card-body">
-        <p className="hero__card-name">{product.name}</p>
-        <p className="hero__card-price">
-          {Number(product.price).toLocaleString('fr-FR')}
-          <span> FCFA</span>
-        </p>
       </div>
     </div>
   );
