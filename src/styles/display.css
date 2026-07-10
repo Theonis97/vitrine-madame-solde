@@ -1,0 +1,363 @@
+/* ==================================================
+   PALETTE — Blanc / Bleu / Noir
+   ================================================== */
+.display {
+  --accent: #1565C0;
+  --secondary: #D32F2F;
+  --bg: #F8F9FC;
+  --surface: #FFFFFF;
+  --surface2: #F0F4F8;
+  --text: #0D1117;
+  --text-muted: #6B7280;
+  --border: #E5E9F0;
+
+  height: 100vh;
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.navbar { flex: 0 0 auto; }
+.footer { flex: 0 0 auto; }
+
+/* ==================================================
+   NAVBAR — épurée : logo + horloge + bouton admin
+   ================================================== */
+.navbar {
+  background: var(--surface);
+  box-shadow: 0 1px 0 var(--border);
+  z-index: 10;
+}
+
+.navbar__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 48px;
+  gap: 24px;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.navbar__logo-block {
+  width: 42px;
+  height: 42px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navbar__logo-letter {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.navbar__store-name {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text);
+}
+
+.navbar__clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar__clock-date {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.navbar__clock-time {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.navbar__admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  transition: filter 0.2s;
+  flex-shrink: 0;
+}
+
+.navbar__admin-btn:hover { filter: brightness(1.12); }
+
+/* ==================================================
+   MAIN
+   ================================================== */
+.display__main {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.display__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+}
+
+.display__admin-link { display: none; }
+
+/* ==================================================
+   HERO — 3 rangées de produits visibles + fond discret
+   ================================================== */
+.hero {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* fond dégradé discret */
+.hero__bg-solid {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #deeaff 0%, #f8f9fc 50%, #deeaff 100%);
+}
+
+/* logo en filigrane */
+.hero__logo-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero__logo-bg img {
+  width: min(30%, 300px);
+  opacity: 0.1;
+  user-select: none;
+}
+
+/* bandeau nom (haut, centré, discret) */
+.hero__store-label {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--accent);
+  opacity: 0.5;
+  z-index: 3;
+  white-space: nowrap;
+}
+
+/* conteneur des rangées */
+.hero__rows {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 30px 0 14px;
+  z-index: 2;
+}
+
+.hero__row-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.hero__row {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  height: 100%;
+  align-items: stretch;
+  will-change: transform;
+}
+
+.hero__row--left  { animation: scroll-left  linear infinite; }
+.hero__row--right { animation: scroll-right linear infinite; }
+
+/* carte produit dans le héro */
+.hero__card {
+  flex: 0 0 auto;
+  width: 200px;
+  background: var(--surface);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(21,101,192,0.10);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__card-img-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.hero__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero__card-cat {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: var(--secondary);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.hero__card-body {
+  flex: 0 0 auto;
+  padding: 9px 12px 11px;
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+}
+
+.hero__card-name {
+  margin: 0 0 3px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.hero__card-price {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.hero__card-price span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+/* ==================================================
+   ANIMATIONS SCROLL
+   ================================================== */
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(-33.333%); }
+  to   { transform: translateX(0); }
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+.footer {}
+
+.footer__marquee-wrap {
+  overflow: hidden;
+  background: var(--accent);
+  padding: 9px 0;
+}
+
+.footer__marquee {
+  display: flex;
+  gap: 80px;
+  width: max-content;
+  animation: scroll-left 22s linear infinite;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.footer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 48px;
+  background: var(--text);
+}
+
+.footer__brand {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer__contact {
+  display: flex;
+  gap: 24px;
+}
+
+.footer__contact-item {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ==================================================
+   ADMIN LINK (caché, accessible via bouton navbar)
+   ================================================== */
+.display__admin-link { display: none; }
+
+/* ==================================================
+   RESPONSIVE
+   ================================================== */
+@media (max-width: 900px) {
+  .navbar__main { padding: 10px 16px; flex-wrap: wrap; }
+  .hero__card   { width: 150px; }
+  .footer__bar  { flex-direction: column; gap: 6px; padding: 10px 16px; text-align: center; }
+}
