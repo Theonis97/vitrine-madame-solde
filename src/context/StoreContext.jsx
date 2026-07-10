@@ -81,22 +81,24 @@ export function StoreProvider({ children }) {
 
   // ── CRUD ────────────────────────────────────────────────────────────────
   const addProduct = useCallback(async (product) => {
-    const { image, ...rest } = product;
+    // On extrait les champs camelCase + les champs locaux (id, createdAt) qui n'existent pas dans Supabase
+    const { image, inStock, id: _id, createdAt: _c, ...rest } = product;
     const { data, error } = await supabase
       .from('products')
-      .insert({ ...rest, image: image || null, in_stock: product.inStock ?? true, featured: product.featured ?? false })
+      .insert({ ...rest, image: image || null, in_stock: inStock ?? true, featured: rest.featured ?? false })
       .select()
       .single();
-    if (error) { console.error(error); return; }
+    if (error) { console.error('Erreur ajout produit :', error.message); return; }
     setProducts((prev) => [normalize(data), ...prev]);
   }, []);
 
   const updateProduct = useCallback(async (id, updates) => {
-    const patch = { ...updates };
-    // Convertit les noms camelCase → snake_case pour Supabase
-    if ('inStock' in patch) { patch.in_stock = patch.inStock; delete patch.inStock; }
+    // Nettoie le patch : camelCase → snake_case, supprime les champs inconnus de Supabase
+    const { inStock, createdAt: _c, id: _id, ...rest } = updates;
+    const patch = { ...rest };
+    if (inStock !== undefined) patch.in_stock = inStock;
     const { error } = await supabase.from('products').update(patch).eq('id', id);
-    if (error) { console.error(error); return; }
+    if (error) { console.error('Erreur mise à jour produit :', error.message); return; }
     setProducts((prev) => prev.map((p) => p.id === id ? normalize({ ...p, ...updates }) : p));
   }, []);
 
