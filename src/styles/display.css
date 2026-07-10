@@ -207,6 +207,7 @@
   height: 100%;
   align-items: stretch;
   will-change: transform;
+  transform: translateZ(0); /* force le rendu GPU */
 }
 
 .hero__row--left  { animation: scroll-left  linear infinite; }
@@ -217,12 +218,12 @@
   flex: 0 0 auto;
   width: 200px;
   background: var(--surface);
-  border-radius: 14px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(21,101,192,0.10);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
+  contain: layout style; /* réduit les recalculs de rendu */
 }
 
 .hero__card-img-wrap {
@@ -290,11 +291,11 @@
    ================================================== */
 @keyframes scroll-left {
   from { transform: translateX(0); }
-  to   { transform: translateX(-33.333%); }
+  to   { transform: translateX(-50%); }
 }
 
 @keyframes scroll-right {
-  from { transform: translateX(-33.333%); }
+  from { transform: translateX(-50%); }
   to   { transform: translateX(0); }
 }
 

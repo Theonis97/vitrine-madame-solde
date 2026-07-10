@@ -32,32 +32,30 @@ export function StoreProvider({ children }) {
   const [loading,  setLoading]  = useState(true);
   const [settings, setSettingsState] = useState(readSettings);
 
-  // ── Chargement initial depuis Supabase ──────────────────────────────────
+  // ── Chargement initial + polling toutes les 2 min (économise la mémoire TV) ──
   useEffect(() => {
     fetchProducts();
-
-    // Abonnement temps réel : la vitrine se met à jour automatiquement
-    const channel = supabase
-      .channel('products-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, fetchProducts)
-      .subscribe();
-
-    return () => supabase.removeChannel(channel);
+    const interval = setInterval(fetchProducts, 2 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
   async function fetchProducts() {
+    console.log('[fetchProducts] lecture Supabase...');
     const { data, error } = await supabase
       .from('products')
       .select('*')
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.error('Erreur chargement produits :', error.message);
+      console.error('[fetchProducts] ERREUR :', error);
       setProducts(sampleProducts);
-    } else if (data.length === 0) {
-      await seedSampleProducts();
     } else {
-      setProducts(data.map(normalize));
+      console.log('[fetchProducts] reçu', data.length, 'produit(s)');
+      if (data.length === 0) {
+        await seedSampleProducts();
+      } else {
+        setProducts(data.map(normalize));
+      }
     }
     setLoading(false);
   }
@@ -81,14 +79,20 @@ export function StoreProvider({ children }) {
 
   // ── CRUD ────────────────────────────────────────────────────────────────
   const addProduct = useCallback(async (product) => {
-    // On extrait les champs camelCase + les champs locaux (id, createdAt) qui n'existent pas dans Supabase
     const { image, inStock, id: _id, createdAt: _c, ...rest } = product;
+    const row = { ...rest, image: image || null, in_stock: inStock ?? true, featured: rest.featured ?? false };
+    console.log('[addProduct] envoi à Supabase :', row);
     const { data, error } = await supabase
       .from('products')
-      .insert({ ...rest, image: image || null, in_stock: inStock ?? true, featured: rest.featured ?? false })
+      .insert(row)
       .select()
       .single();
-    if (error) { console.error('Erreur ajout produit :', error.message); return; }
+    if (error) {
+      console.error('[addProduct] ERREUR Supabase :', error);
+      alert(`Erreur Supabase : ${error.message}\nCode : ${error.code}`);
+      return;
+    }
+    console.log('[addProduct] succès :', data);
     setProducts((prev) => [normalize(data), ...prev]);
   }, []);
 

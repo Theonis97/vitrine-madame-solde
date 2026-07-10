@@ -1,30 +1,28 @@
-export default function Hero({ products, storeName }) {
-  // Trois rangées pour le défilement
-  const half = Math.ceil(products.length / 3);
-  const row1 = products.slice(0, half);
-  const row2 = products.slice(half, half * 2);
-  const row3 = products.slice(half * 2);
+// Limite le nombre de cartes par rangée pour économiser la mémoire (Smart TV)
+const MAX_PER_ROW = 8;
 
-  const makeLoop = (arr) => (arr.length === 0 ? products : [...arr, ...arr, ...arr]);
+export default function Hero({ products, storeName }) {
+  // 2 rangées au lieu de 3 — moins de nœuds DOM
+  const half = Math.ceil(products.length / 2);
+  const row1 = products.slice(0, half).slice(0, MAX_PER_ROW);
+  const row2 = products.slice(half).slice(0, MAX_PER_ROW);
+
+  // Duplication ×2 suffit pour l'animation en boucle
+  const makeLoop = (arr) => (arr.length === 0 ? products.slice(0, MAX_PER_ROW) : [...arr, ...arr]);
 
   return (
     <div className="hero">
-      {/* Fond dégradé sobre */}
       <div className="hero__bg-solid" />
 
-      {/* Logo en filigrane */}
       <div className="hero__logo-bg">
-        <img src="/logo-bg.png" alt="" aria-hidden="true" />
+        <img src="/logo-bg.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       </div>
 
-      {/* Bandeau nom du magasin */}
       <div className="hero__store-label">{storeName}</div>
 
-      {/* Les 3 rangées de produits visibles */}
       <div className="hero__rows">
-        <HeroRow items={makeLoop(row1)} direction="left"  speed={38} />
-        <HeroRow items={makeLoop(row2)} direction="right" speed={30} />
-        <HeroRow items={makeLoop(row3)} direction="left"  speed={44} />
+        <HeroRow items={makeLoop(row1)} direction="left"  speed={36} />
+        <HeroRow items={makeLoop(row2)} direction="right" speed={28} />
       </div>
     </div>
   );
@@ -49,7 +47,13 @@ function HeroCard({ product }) {
   return (
     <div className="hero__card">
       <div className="hero__card-img-wrap">
-        <img src={product.image} alt={product.name} className="hero__card-img" />
+        <img
+          src={product.image}
+          alt={product.name}
+          className="hero__card-img"
+          loading="lazy"
+          decoding="async"
+        />
         {product.category && (
           <span className="hero__card-cat">{product.category}</span>
         )}
