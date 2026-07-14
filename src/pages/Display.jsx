@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../context/StoreContext';
-import Hero from '../components/Hero';
+import Hero, { PageBackground } from '../components/Hero';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../styles/display.css';
@@ -31,6 +31,9 @@ export default function Display() {
       className="display"
       style={{ '--accent': settings.accentColor, '--secondary': settings.secondaryColor }}
     >
+      {/* Fond paysage rotatif — couvre toute la page, navbar incluse */}
+      <PageBackground />
+
       <Navbar
         storeName={settings.storeName}
         phone={settings.phone}
