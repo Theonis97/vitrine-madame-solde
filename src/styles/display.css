@@ -11,13 +11,14 @@
   --text-muted: #6B7280;
   --border: #E5E9F0;
 
-  height: 100vh;
+  height: 100dvh; /* dvh = vrai plein écran TV/mobile */
   width: 100%;
+  max-height: 100vh;
   background: var(--bg);
   color: var(--text);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; /* uniquement pour la vitrine, pas l'admin */
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -146,7 +147,18 @@
 .hero__bg-solid {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #deeaff 0%, #f8f9fc 50%, #deeaff 100%);
+  /* Paysage : ciel bleu → vert prairie */
+  background:
+    linear-gradient(
+      180deg,
+      #a8d8f0 0%,
+      #78b8e8 20%,
+      #5aa0d8 38%,
+      #4a9068 55%,
+      #3a7a52 70%,
+      #2d6140 85%,
+      #1e4a2e 100%
+    );
 }
 
 .hero__logo-bg {
@@ -232,6 +244,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
 }
 
@@ -335,6 +348,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
 }
 
