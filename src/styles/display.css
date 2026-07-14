@@ -305,45 +305,46 @@
   position: relative;
   z-index: 3;
   display: flex;
-  gap: 24px;
+  gap: 20px;
   justify-content: center;
-  align-items: stretch;
-  width: min(620px, 60vw);
-  height: min(400px, 60vh);
+  align-items: flex-start;
+  width: min(960px, 88vw);
+  height: min(480px, 68vh);
   transition: opacity 0.5s ease;
 }
 
 .hero__slide--in  { opacity: 1; }
 .hero__slide--out { opacity: 0; }
 
-/* Effet verre — laisse le paysage bien visible */
+/* Carte en verre — image en haut, infos en bas */
 .hero__slide-card {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.5);
   flex: 1;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  height: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
 }
 
-/* Mode 1 produit : carte horizontale */
+/* Mode 1 produit : image occupe 70% de la hauteur */
 .hero__slide-card--wide {
-  flex-direction: row;
+  flex-direction: column;
+  max-width: 480px;
 }
 
 .hero__slide-card--wide .hero__slide-img-wrap {
-  flex: 1.2;
+  flex: 3;
 }
 
 .hero__slide-card--wide .hero__slide-body {
-  flex: 0 0 240px;
-  border-left: 4px solid var(--accent);
-  border-top: none;
-  background: rgba(255,255,255,0.5);
+  flex: 0 0 auto;
+  border-left: none;
+  border-top: 3px solid var(--accent);
 }
 
 .hero__slide-img-wrap {
@@ -377,17 +378,17 @@
 
 .hero__slide-body {
   flex: 0 0 auto;
-  padding: 20px 24px;
+  padding: 16px 22px 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border-top: 3px solid var(--accent);
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .hero__slide-name {
-  margin: 0 0 10px;
-  font-size: 1.2rem;
+  margin: 0 0 6px;
+  font-size: 1.1rem;
   font-weight: 900;
   color: var(--text);
   text-transform: uppercase;
@@ -396,15 +397,15 @@
 }
 
 .hero__slide-price {
-  margin: 0 0 8px;
-  font-size: 1.8rem;
+  margin: 0 0 4px;
+  font-size: 1.7rem;
   font-weight: 900;
   color: var(--accent);
   line-height: 1;
 }
 
 .hero__slide-price span {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-muted);
   margin-left: 4px;
@@ -412,7 +413,7 @@
 
 .hero__slide-stock {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
