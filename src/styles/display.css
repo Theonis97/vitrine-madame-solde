@@ -308,25 +308,26 @@
   gap: 24px;
   justify-content: center;
   align-items: stretch;
-  width: min(900px, 92vw);
-  height: min(460px, 72vh);
+  width: min(620px, 60vw);
+  height: min(400px, 60vh);
   transition: opacity 0.5s ease;
 }
 
 .hero__slide--in  { opacity: 1; }
 .hero__slide--out { opacity: 0; }
 
-/* Effet verre — laisse le paysage visible */
+/* Effet verre — laisse le paysage bien visible */
 .hero__slide-card {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.6);
   flex: 1;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 /* Mode 1 produit : carte horizontale */
@@ -339,9 +340,10 @@
 }
 
 .hero__slide-card--wide .hero__slide-body {
-  flex: 0 0 280px;
+  flex: 0 0 240px;
   border-left: 4px solid var(--accent);
   border-top: none;
+  background: rgba(255,255,255,0.5);
 }
 
 .hero__slide-img-wrap {
@@ -375,11 +377,12 @@
 
 .hero__slide-body {
   flex: 0 0 auto;
-  padding: 24px 28px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border-top: 3px solid var(--accent);
+  background: rgba(255,255,255,0.5);
 }
 
 .hero__slide-name {
