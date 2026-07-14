@@ -14,7 +14,10 @@ export default function Display() {
     return () => clearInterval(interval);
   }, []);
 
-  const visibleProducts = products.filter((p) => p.inStock !== false);
+  // Uniquement les produits avec une vraie image uploadée (pas les placeholders SVG auto-générés)
+  const visibleProducts = products.filter(
+    (p) => p.inStock !== false && p.image && !p.image.startsWith('data:image/svg+xml')
+  );
 
   const dateLabel = now.toLocaleDateString('fr-FR', {
     weekday: 'long',
