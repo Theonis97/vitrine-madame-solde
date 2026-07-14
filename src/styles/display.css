@@ -150,18 +150,15 @@
 .hero__bg-solid {
   position: absolute;
   inset: 0;
-  /* Paysage : ciel bleu → vert prairie */
-  background:
-    linear-gradient(
-      180deg,
-      #a8d8f0 0%,
-      #78b8e8 20%,
-      #5aa0d8 38%,
-      #4a9068 55%,
-      #3a7a52 70%,
-      #2d6140 85%,
-      #1e4a2e 100%
-    );
+  background: url('/bg-paysage.jpg') center center / cover no-repeat;
+}
+
+/* Voile semi-transparent pour garder les textes lisibles */
+.hero__bg-solid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .hero__logo-bg {
