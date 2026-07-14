@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 
 const BACKGROUNDS = [
-  '/bg-paysage.jpg',
-  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80&fit=crop',
-  'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1920&q=80&fit=crop',
-  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=80&fit=crop',
-  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80&fit=crop',
-  'https://images.unsplash.com/photo-1510784722466-f2aa240c0e18?w=1920&q=80&fit=crop',
+  '/bg-paysage.jpg',                                                                                       // Plage tropicale (votre image)
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80&fit=crop',   // Lac de montagne
+  'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=1920&q=80&fit=crop',   // Forêt mystique
+  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=80&fit=crop',   // Vue nature aérienne
+  'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1920&q=80&fit=crop',   // Cascade
+  'https://images.unsplash.com/photo-1510784722466-f2aa240c0e18?w=1920&q=80&fit=crop',   // Coucher de soleil mer
+  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&q=80&fit=crop',   // Montagne dorée
+  'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1920&q=80&fit=crop',   // Forêt automne
+  'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=1920&q=80&fit=crop',   // Coucher soleil champs
+  'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1920&q=80&fit=crop',   // Plage tropicale 2
+  'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=1920&q=80&fit=crop',   // Lac brume montagne
+  'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1920&q=80&fit=crop',   // Plaine verte lever soleil
 ];
 
 const BG_INTERVAL = 1.5 * 60 * 1000;
