@@ -10,7 +10,7 @@ const BACKGROUNDS = [
   'https://images.unsplash.com/photo-1510784722466-f2aa240c0e18?w=1920&q=80&fit=crop',  // Coucher de soleil mer
 ];
 
-const BG_INTERVAL = 3 * 60 * 1000; // 3 minutes
+const BG_INTERVAL = 1.5 * 60 * 1000; // 1 minute 30
 
 /**
  * Affichage adaptatif selon le nombre de produits :
