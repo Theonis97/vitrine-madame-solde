@@ -29,8 +29,10 @@
    NAVBAR — épurée : logo + horloge + bouton admin
    ================================================== */
 .navbar {
-  background: var(--surface);
-  box-shadow: 0 1px 0 var(--border);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.4);
   z-index: 10;
 }
 
@@ -307,22 +309,22 @@
   display: flex;
   gap: 20px;
   justify-content: center;
-  align-items: flex-start;
-  width: min(960px, 88vw);
-  height: min(480px, 68vh);
+  align-items: center;
+  width: min(860px, 84vw);
+  height: min(440px, 65vh);
   transition: opacity 0.5s ease;
 }
 
 .hero__slide--in  { opacity: 1; }
 .hero__slide--out { opacity: 0; }
 
-/* Carte en verre — image en haut, infos en bas */
+/* Carte en verre */
 .hero__slide-card {
   display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.5);
@@ -331,20 +333,19 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
 }
 
-/* Mode 1 produit : image occupe 70% de la hauteur */
+/* Mode 1 produit : image à gauche (large), infos à droite */
 .hero__slide-card--wide {
-  flex-direction: column;
-  max-width: 480px;
+  flex-direction: row;
 }
 
 .hero__slide-card--wide .hero__slide-img-wrap {
-  flex: 3;
+  flex: 1.8; /* image occupe ~65% */
 }
 
 .hero__slide-card--wide .hero__slide-body {
-  flex: 0 0 auto;
-  border-left: none;
-  border-top: 3px solid var(--accent);
+  flex: 0 0 220px;
+  border-left: 4px solid var(--accent);
+  border-top: none;
 }
 
 .hero__slide-img-wrap {
